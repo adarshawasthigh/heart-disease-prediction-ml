@@ -45,8 +45,12 @@ Source: https://github.com/sharmaroshan/Heart-UCI-Dataset
 
 ## How to Run
 
-### 1️⃣ Clone the repository
+
 ```bash
 git clone https://github.com/your-username/heart-disease-prediction-ml.git
 cd heart-disease-prediction-ml
+pip install -r requirements.txt
+python src/train_and_evaluate.py
+
+
 
