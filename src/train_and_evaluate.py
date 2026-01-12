@@ -14,6 +14,7 @@ from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 
 from sklearn.metrics import accuracy_score, recall_score, f1_score, ConfusionMatrixDisplay
+from sklearn.metrics import fbeta_score
 
 # -------------------------------------------------
 # 1. LOAD & CLEAN DATA
@@ -97,7 +98,7 @@ pipelines = {
 # -------------------------------------------------
 skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
-print(f"{'Model':<20} | {'CV Acc':<8} | {'Train Acc':<10} | {'Test Acc':<9} | {'Recall':<8} | {'F1':<6}")
+print(f"{'Model':<20} | {'CV Acc':<8} | {'Train Acc':<10} | {'Test Acc':<9} | {'Recall':<8} | {'F1':<6}|{'F2':<6}")
 print("-" * 80)
 
 results = []
@@ -119,7 +120,7 @@ for name, pipe in pipelines.items():
     recall = recall_score(y_test, y_test_pred)
     f1 = f1_score(y_test, y_test_pred)
 
-    print(f"{name:<20} | {cv_acc:.2%} | {train_acc:.2%} | {test_acc:.2%} | {recall:.2%} | {f1:.2%}")
+    print(f"{name:<20} | {cv_acc:.2%} | {train_acc:.2%} | {test_acc:.2%} | {recall:.2%} | {f1:.2%}|{f2:.3%}")
 
     results.append({
         "Model": name,
@@ -127,7 +128,8 @@ for name, pipe in pipelines.items():
         "Train Accuracy": train_acc,
         "Test Accuracy": test_acc,
         "Recall": recall,
-        "F1": f1
+        "F1": f1,
+        "F2 Score (Recall-biased)":f2
     })
 
 # -------------------------------------------------
